@@ -20,12 +20,10 @@ and local unit tests that run on your computer.
 Each ViewModel is tested using local unit tests with mock Repository
 implementations.
 ##### Repository Tests
-Each Repository is tested using local unit tests with mock web service and
-mock database.
+Each Repository is tested using local unit tests with mock database.
 ##### Database Tests
 The project creates an in memory database for each database test but still
 runs them on the device.
-
 
 ### Libraries
 * [Android Architecture Components][arch]
@@ -42,6 +40,7 @@ runs them on the device.
 * [Timber][timber] for logging
 * [espresso][espresso] for UI tests
 * [mockito][mockito] for mocking in tests
+* [jacoco] for export UnitTest report coverage
 
 CHECKLIST 
 -------------
@@ -55,11 +54,11 @@ CHECKLIST
 7. Exceptionhandling. -- DONE 
 8. Cachinghandling. -- DONE 
 9. SecureAndroidappfrom:
-a. DecompileAPK  -- DONE (progruard) 
-b. Rooteddevice  -- NOT
-c. Data transmission via network -- NOT (intent to use SSL) 
-d. Encryption for sensitive information -- NOT ( intent to use SQLCipher for Database) 
-10.Accessibility for Disability Supports -- NOT
-11.Entity relationship diagram for the database -- DONE 
-12.Readme file includes: -- DONE 
+  * DecompileAPK  -- DONE (progruard) 
+  * Rooteddevice  -- NOT
+  * Data transmission via network -- NOT (intent to use SSL) 
+  * Encryption for sensitive information -- NOT ( intent to use SQLCipher for Database)
+10. Accessibility for Disability Supports -- NOT
+11. Entity relationship diagram for the database -- DONE 
+12. Readme file includes: -- DONE 
 
