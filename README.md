@@ -6,7 +6,7 @@ Introduction
 -------------
 
 ### Functionality
-The app is have one screens.
+The app have one screens.
 User inputs a city name and we will show them the weather data for the last 7 days of this city
 
 ### Building
