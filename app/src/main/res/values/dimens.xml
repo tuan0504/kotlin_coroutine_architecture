@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!--DP-->
+    <dimen name="padding_none">0dp</dimen>
+    <dimen name="padding_small">16dp</dimen>
+    <dimen name="padding_small_extra">2dp</dimen>
+
+    <dimen name="margin">8dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_large_extra">32dp</dimen>
+
+    <dimen name="title_detail_size">160dp</dimen>
+    <dimen name="progress_bar_size">30dp</dimen>
+    <dimen name="line_height">0.5dp</dimen>
+
+
+    <!--SP-->
+    <dimen name="text_size_title">16sp</dimen>
+    <dimen name="text_size_badge">11sp</dimen>
+</resources>

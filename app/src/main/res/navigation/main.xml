@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    app:startDestination="@id/detailFragment">
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.nn.interview.features.weathers.WeathersFragment"
+        android:label="DetailFragment" >
+        <action
+            android:id="@+id/showDetail"
+            app:enterAnim="@anim/slide_from_right"
+            app:launchSingleTop="true" />
+    </fragment>
+</navigation>

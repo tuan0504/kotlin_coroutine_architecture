@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Interview</string>
+
+    <string name="error_general">Oops, something went wrong, please try again</string>
+    <string name="error_general_short">Something went wrong!</string>
+    <string name="network_connection_has_been_lost">Network connection has been lost</string>
+    <string name="get_weather">Get Weather</string>
+
+    <string name="no_city_description">The city is not found</string>
+
+    <string name="weather_datetime">Date: %s</string>
+    <string name="weather_temp_avg">Average temperature: %s°C</string>
+    <string name="weather_pressure">Pressure: %d</string>
+    <string name="weather_humidity">Humidity: %d\%%</string>
+    <string name="weather_description">Description: %s</string>
+</resources>

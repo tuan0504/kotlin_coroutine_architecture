@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="com.nn.interview.features.weathers.model.WeathersDataTypesKt"/>
+        <variable
+            name="dailyData"
+            type="com.nn.interview.features.weathers.model.WeatherDailyDataModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin">
+
+        <TextView
+            android:id="@+id/txt_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginTop="@dimen/margin"
+            android:text="@{@string/weather_datetime(dailyData.date)}"
+            app:layout_constraintBottom_toTopOf="@+id/txt_averageTemperature"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Date" />
+
+        <TextView
+            android:id="@+id/txt_averageTemperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
+            android:text="@{@string/weather_temp_avg(dailyData.averageTemperature)}"
+            app:layout_constraintBottom_toTopOf="@+id/txt_pressure"
+            app:layout_constraintStart_toStartOf="@+id/txt_date"
+            app:layout_constraintTop_toBottomOf="@+id/txt_date"
+            tools:text="Average Tempature" />
+
+        <TextView
+            android:id="@+id/txt_pressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
+            android:text="@{@string/weather_pressure(dailyData.pressure)}"
+            app:layout_constraintBottom_toTopOf="@+id/txt_humidity"
+            app:layout_constraintStart_toStartOf="@+id/txt_averageTemperature"
+            app:layout_constraintTop_toBottomOf="@+id/txt_averageTemperature"
+            tools:text="Pressure" />
+
+        <TextView
+            android:id="@+id/txt_humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
+            android:text="@{@string/weather_humidity(dailyData.humidity)}"
+            app:layout_constraintBottom_toTopOf="@+id/txt_desc"
+            app:layout_constraintStart_toStartOf="@+id/txt_pressure"
+            app:layout_constraintTop_toBottomOf="@+id/txt_pressure"
+            tools:text="Humidity" />
+
+        <TextView
+            android:id="@+id/txt_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
+            android:text="@{@string/weather_description(dailyData.description)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txt_humidity"
+            app:layout_constraintTop_toBottomOf="@+id/txt_humidity" />
+
+        <TextView
+            android:id="@+id/txt_no_city"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/title_detail_size"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginTop="64dp"
+            android:gravity="center"
+            android:text="@{@string/no_city_description}"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+            app:isShownOrGone="@{dailyData == WeathersDataTypesKt.getNO_CITY_NAME()}"
+            app:layout_constraintBottom_toTopOf="@+id/txt_averageTemperature"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Date" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="txt_date, txt_averageTemperature, txt_pressure, txt_humidity, txt_desc"
+            app:isShownOrGone="@{dailyData != WeathersDataTypesKt.getNO_CITY_NAME()}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
