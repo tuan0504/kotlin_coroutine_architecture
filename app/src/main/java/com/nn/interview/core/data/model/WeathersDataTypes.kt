@@ -1,4 +1,4 @@
-package com.nn.interview.features.weathers.model
+package com.nn.interview.core.data.model
 
 import android.os.Parcelable
 import com.nn.interview.core.data.db.entity.WeatherCityEntity

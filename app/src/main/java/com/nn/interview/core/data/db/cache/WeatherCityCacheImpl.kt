@@ -3,8 +3,8 @@ package com.nn.interview.core.data.db.cache
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.nn.interview.core.data.db.dao.WeatherCityDao
-import com.nn.interview.features.weathers.model.WeatherDailyDataModel
-import com.nn.interview.features.weathers.model.toDataModel
+import com.nn.interview.core.data.model.WeatherDailyDataModel
+import com.nn.interview.core.data.model.toDataModel
 import javax.inject.Inject
 
 class WeatherCityCacheImpl

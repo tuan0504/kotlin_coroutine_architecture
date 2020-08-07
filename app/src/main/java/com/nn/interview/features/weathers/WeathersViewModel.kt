@@ -8,8 +8,8 @@ import com.nn.interview.core.ui.BaseViewModel
 import com.nn.interview.core.ui.BasicLiveEvent
 import com.nn.interview.core.utils.AbsentLiveData
 import com.nn.interview.core.utils.debounce
-import com.nn.interview.features.weathers.model.WeatherDailyDataModel
-import com.nn.interview.features.weathers.respository.WeatherRepository
+import com.nn.interview.core.data.model.WeatherDailyDataModel
+import com.nn.interview.core.data.respository.WeatherRepository
 import javax.inject.Inject
 
 class WeathersViewModel

@@ -7,8 +7,8 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.nn.interview.BaseViewModelTest
 import com.nn.interview.core.api.Resource
-import com.nn.interview.features.weathers.model.WeatherDailyDataModel
-import com.nn.interview.features.weathers.respository.WeatherRepository
+import com.nn.interview.core.data.model.WeatherDailyDataModel
+import com.nn.interview.core.data.respository.WeatherRepository
 import kotlinx.coroutines.delay
 import org.junit.Before
 import org.junit.Test

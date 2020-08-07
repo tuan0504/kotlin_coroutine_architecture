@@ -5,8 +5,8 @@ import android.app.Application
 import android.content.Context
 import android.provider.Settings
 import com.nn.interview.MyApplication
-import com.nn.interview.features.weathers.respository.WeatherRepository
-import com.nn.interview.features.weathers.respository.WeatherRepositoryImpl
+import com.nn.interview.core.data.respository.WeatherRepository
+import com.nn.interview.core.data.respository.WeatherRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

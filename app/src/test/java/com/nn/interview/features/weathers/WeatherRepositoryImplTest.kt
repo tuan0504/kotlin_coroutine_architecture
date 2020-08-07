@@ -8,8 +8,8 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.nn.interview.BaseRepositoryTest
 import com.nn.interview.core.api.*
 import com.nn.interview.core.data.db.cache.WeatherCityCache
-import com.nn.interview.features.weathers.model.WeatherDailyDataModel
-import com.nn.interview.features.weathers.respository.WeatherRepositoryImpl
+import com.nn.interview.core.data.model.WeatherDailyDataModel
+import com.nn.interview.core.data.respository.WeatherRepositoryImpl
 import kotlinx.coroutines.delay
 import okhttp3.ResponseBody
 import org.junit.Before
@@ -114,7 +114,7 @@ class WeatherRepositoryImplTest: BaseRepositoryTest() {
 
     @Test
     fun `getWeathersDailyInCity should emit success and update database`() {
-        testCoroutineRule.runBlockingTest {
+        testCoroutineRule.runCatching {
             whenever(api.getWeatherDaily(weather.city))
                 .thenReturn(MutableLiveData<ApiResponse<ResponseBody>>()
                     .apply { value = ApiSuccessResponse(ResponseBody.create(null, responseBody)) })
@@ -124,7 +124,6 @@ class WeatherRepositoryImplTest: BaseRepositoryTest() {
                     .apply { value = listOf() })
             repository.getWeathersDailyInCity(weather.city).observeForever(observer)
             verify(observer).onChanged(Resource.loading(null))
-            delay(500)
             verify(cache).insert(weather.city, responseBody)
         }
     }

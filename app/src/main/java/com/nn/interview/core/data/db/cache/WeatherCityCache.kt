@@ -1,7 +1,7 @@
 package com.nn.interview.core.data.db.cache
 
 import androidx.lifecycle.LiveData
-import com.nn.interview.features.weathers.model.WeatherDailyDataModel
+import com.nn.interview.core.data.model.WeatherDailyDataModel
 
 interface WeatherCityCache {
 
