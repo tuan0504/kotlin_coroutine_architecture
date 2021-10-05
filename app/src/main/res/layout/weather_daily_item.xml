@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-        <import type="com.nn.interview.core.data.model.WeathersDataTypesKt"/>
+        <import type="com.nn.architecture.core.data.model.WeathersDataTypesKt"/>
         <variable
             name="dailyData"
-            type="com.nn.interview.core.data.model.WeatherDailyDataModel" />
+            type="com.nn.architecture.core.data.model.WeatherDailyDataModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.nn.interview.features.weathers.WeathersFragment"
+        android:name="com.nn.architecture.features.weathers.WeathersFragment"
         android:label="DetailFragment" >
         <action
             android:id="@+id/showDetail"

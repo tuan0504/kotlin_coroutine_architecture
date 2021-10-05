@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <import type="com.nn.interview.core.api.Status"/>
+        <import type="com.nn.architecture.core.api.Status"/>
         
         <variable
             name="queryString"
@@ -12,7 +12,7 @@
 
         <variable
             name="viewModel"
-            type="com.nn.interview.features.weathers.WeathersViewModel" />
+            type="com.nn.architecture.features.weathers.WeathersViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
