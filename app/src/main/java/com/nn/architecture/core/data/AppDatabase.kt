@@ -2,8 +2,8 @@ package com.nn.architecture.core.data
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.nn.architecture.core.data.db.dao.WeatherCityDao
-import com.nn.architecture.core.data.db.entity.WeatherCityEntity
+import com.nn.architecture.features.weathers.db.dao.WeatherCityDao
+import com.nn.architecture.features.weathers.db.entity.WeatherCityEntity
 
 @Database(
         entities = [WeatherCityEntity::class],

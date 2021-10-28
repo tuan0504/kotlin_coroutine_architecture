@@ -7,9 +7,9 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.nn.architecture.BaseRepositoryTest
 import com.nn.architecture.core.api.*
-import com.nn.architecture.core.data.db.cache.WeatherCityCache
-import com.nn.architecture.core.data.model.WeatherDailyDataModel
-import com.nn.architecture.core.data.respository.WeatherRepositoryImpl
+import com.nn.architecture.features.weathers.db.cache.WeatherCityCache
+import com.nn.architecture.features.weathers.model.WeatherDailyDataModel
+import com.nn.architecture.features.weathers.respository.WeatherRepositoryImpl
 import okhttp3.ResponseBody
 import org.junit.Before
 import org.junit.Test

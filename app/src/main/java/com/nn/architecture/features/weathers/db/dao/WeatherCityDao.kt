@@ -1,9 +1,9 @@
-package com.nn.architecture.core.data.db.dao
+package com.nn.architecture.features.weathers.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.nn.architecture.core.data.TABLE_WEATHER_CITY
-import com.nn.architecture.core.data.db.entity.WeatherCityEntity
+import com.nn.architecture.features.weathers.db.entity.WeatherCityEntity
 import java.util.*
 
 @Dao

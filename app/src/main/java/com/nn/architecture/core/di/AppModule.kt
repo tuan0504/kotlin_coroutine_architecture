@@ -3,8 +3,8 @@ package com.nn.architecture.core.di
 import android.annotation.SuppressLint
 import android.content.Context
 import android.provider.Settings
-import com.nn.architecture.core.data.respository.WeatherRepository
-import com.nn.architecture.core.data.respository.WeatherRepositoryImpl
+import com.nn.architecture.features.weathers.respository.WeatherRepository
+import com.nn.architecture.features.weathers.respository.WeatherRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

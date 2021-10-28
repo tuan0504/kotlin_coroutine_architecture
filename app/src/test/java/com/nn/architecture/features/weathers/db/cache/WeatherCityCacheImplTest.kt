@@ -1,9 +1,9 @@
-package com.nn.architecture.core.data.db.cache
+package com.nn.architecture.features.weathers.db.cache
 
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
-import com.nn.architecture.core.data.db.dao.WeatherCityDao
-import com.nn.architecture.core.data.db.entity.WeatherCityEntity
+import com.nn.architecture.features.weathers.db.dao.WeatherCityDao
+import com.nn.architecture.features.weathers.db.entity.WeatherCityEntity
 import com.nn.architecture.getCurrentDate
 import org.junit.Before
 import org.junit.Test

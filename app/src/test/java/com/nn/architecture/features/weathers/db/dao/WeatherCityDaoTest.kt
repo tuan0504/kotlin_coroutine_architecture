@@ -1,9 +1,9 @@
-package com.nn.architecture.core.data.db.dao
+package com.nn.architecture.features.weathers.db.dao
 
 import android.app.Application
 import com.nn.architecture.blockingObserve
 import com.nn.architecture.core.data.DbTest
-import com.nn.architecture.core.data.db.entity.WeatherCityEntity
+import com.nn.architecture.features.weathers.db.entity.WeatherCityEntity
 import com.nn.architecture.getCurrentDate
 import org.junit.Before
 import org.junit.Test

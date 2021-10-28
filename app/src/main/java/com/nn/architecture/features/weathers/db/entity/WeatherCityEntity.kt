@@ -1,4 +1,4 @@
-package com.nn.architecture.core.data.db.entity
+package com.nn.architecture.features.weathers.db.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

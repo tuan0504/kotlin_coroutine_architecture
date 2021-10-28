@@ -26,9 +26,9 @@ class WeathersFragment : BaseMvvmFragment<WeathersViewModel, FragmentWeatherCity
 
     override fun initViewModel() {
         viewModel = ViewModelProvider(this, factory).get(WeathersViewModel::class.java)
-        viewModel?.uiEvent?.setEventReceiver(viewLifecycleOwner, this)
-        binding?.lifecycleOwner = viewLifecycleOwner
-        binding?.viewModel = viewModel
+        viewModel.uiEvent.setEventReceiver(viewLifecycleOwner, this)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
         observerChange()
     }
 
@@ -37,24 +37,24 @@ class WeathersFragment : BaseMvvmFragment<WeathersViewModel, FragmentWeatherCity
             val divider = createItemDecoration(it)
             recyclerViewAdapter = WeatherRecyclerAdapter(it)
 
-            binding?.recyclerView?.apply {
+            binding.recyclerView.apply {
                 adapter = recyclerViewAdapter
                 addItemDecoration(divider)
             }
 
-            binding?.queryString = viewModel?.queryString
-            binding?.executePendingBindings()
+            binding.queryString = viewModel.queryString
+            binding.executePendingBindings()
         }
     }
 
     private fun observerChange() {
-        viewModel?.listData?.observe(viewLifecycleOwner, Observer {
+        viewModel.listData.observe(viewLifecycleOwner, Observer {
             if(it?.status == Status.SUCCESS) {
                 recyclerViewAdapter?.submitList(it.data)
             }
         })
 
-        viewModel?.queryString?.observe(viewLifecycleOwner, Observer {
+        viewModel.queryString.observe(viewLifecycleOwner, Observer {
             if(it.count() > 2) { viewModel?.queryWeathersCity() }
         })
     }

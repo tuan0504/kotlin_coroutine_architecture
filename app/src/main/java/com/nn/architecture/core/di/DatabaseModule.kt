@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import com.nn.architecture.core.data.AppDatabase
 import com.nn.architecture.core.data.DB_NAME
-import com.nn.architecture.core.data.db.cache.WeatherCityCache
-import com.nn.architecture.core.data.db.cache.WeatherCityCacheImpl
-import com.nn.architecture.core.data.db.dao.WeatherCityDao
+import com.nn.architecture.features.weathers.db.cache.WeatherCityCache
+import com.nn.architecture.features.weathers.db.cache.WeatherCityCacheImpl
+import com.nn.architecture.features.weathers.db.dao.WeatherCityDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

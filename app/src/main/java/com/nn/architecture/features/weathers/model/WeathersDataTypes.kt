@@ -1,7 +1,7 @@
-package com.nn.architecture.core.data.model
+package com.nn.architecture.features.weathers.model
 
 import android.os.Parcelable
-import com.nn.architecture.core.data.db.entity.WeatherCityEntity
+import com.nn.architecture.features.weathers.db.entity.WeatherCityEntity
 import com.nn.architecture.core.utils.DateUtils
 import com.nn.architecture.core.utils.JSONParser
 import com.squareup.moshi.Json

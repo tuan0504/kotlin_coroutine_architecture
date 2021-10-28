@@ -1,10 +1,10 @@
-package com.nn.architecture.core.data.db.cache
+package com.nn.architecture.features.weathers.db.cache
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.nn.architecture.core.data.db.dao.WeatherCityDao
-import com.nn.architecture.core.data.model.WeatherDailyDataModel
-import com.nn.architecture.core.data.model.toDataModel
+import com.nn.architecture.features.weathers.db.dao.WeatherCityDao
+import com.nn.architecture.features.weathers.model.WeatherDailyDataModel
+import com.nn.architecture.features.weathers.model.toDataModel
 import javax.inject.Inject
 
 class WeatherCityCacheImpl

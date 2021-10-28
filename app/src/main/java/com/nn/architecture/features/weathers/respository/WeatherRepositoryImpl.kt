@@ -1,10 +1,10 @@
-package com.nn.architecture.core.data.respository
+package com.nn.architecture.features.weathers.respository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.nn.architecture.core.api.*
-import com.nn.architecture.core.data.db.cache.WeatherCityCache
-import com.nn.architecture.core.data.model.WeatherDailyDataModel
+import com.nn.architecture.features.weathers.db.cache.WeatherCityCache
+import com.nn.architecture.features.weathers.model.WeatherDailyDataModel
 import okhttp3.ResponseBody
 import javax.inject.Inject
 

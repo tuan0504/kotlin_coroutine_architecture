@@ -7,8 +7,8 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.nn.architecture.BaseViewModelTest
 import com.nn.architecture.core.api.Resource
-import com.nn.architecture.core.data.model.WeatherDailyDataModel
-import com.nn.architecture.core.data.respository.WeatherRepository
+import com.nn.architecture.features.weathers.model.WeatherDailyDataModel
+import com.nn.architecture.features.weathers.respository.WeatherRepository
 import kotlinx.coroutines.delay
 import org.junit.Before
 import org.junit.Test
@@ -48,7 +48,6 @@ class WeathersViewModelTest: BaseViewModelTest() {
             verify(observer).onChanged(null)
 
             viewModel.queryWeathersCity()
-            delay(500)
             verify(observer).onChanged(resource)
         }
     }

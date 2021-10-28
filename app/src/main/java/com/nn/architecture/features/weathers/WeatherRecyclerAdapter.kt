@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nn.architecture.databinding.WeatherDailyItemBinding
-import com.nn.architecture.core.data.model.WeatherDailyDataModel
+import com.nn.architecture.features.weathers.model.WeatherDailyDataModel
 
 
 class WeatherRecyclerAdapter(val context: Context) : ListAdapter<WeatherDailyDataModel, WeatherRecyclerAdapter.WeatherDailyViewHolder>(COMPARE_DIFF){

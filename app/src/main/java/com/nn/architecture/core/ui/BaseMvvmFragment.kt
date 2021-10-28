@@ -15,8 +15,8 @@ import com.nn.architecture.R
 abstract class BaseMvvmFragment<T : ViewModel, V : ViewDataBinding>(private val layoutId: Int) :
     Fragment(), BasicLiveEvent {
 
-    open var binding: V? = null
-    open var viewModel: T? = null
+    protected lateinit var binding: V
+    protected lateinit var viewModel: T
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         view?.let { view ->
@@ -25,7 +25,7 @@ abstract class BaseMvvmFragment<T : ViewModel, V : ViewDataBinding>(private val 
         }
 
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-        return binding?.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
