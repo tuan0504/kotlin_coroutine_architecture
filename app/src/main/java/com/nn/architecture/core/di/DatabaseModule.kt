@@ -4,9 +4,6 @@ import android.content.Context
 import androidx.room.Room
 import com.nn.architecture.core.data.AppDatabase
 import com.nn.architecture.core.data.DB_NAME
-import com.nn.architecture.features.weathers.db.cache.WeatherCityCache
-import com.nn.architecture.features.weathers.db.cache.WeatherCityCacheImpl
-import com.nn.architecture.features.weathers.db.dao.WeatherCityDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,12 +25,4 @@ class DatabaseModule {
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context, @Named("DB_NAME") dbName: String): AppDatabase =
             Room.databaseBuilder(context, AppDatabase::class.java, dbName).build()
-
-    @Provides
-    @Singleton
-    fun provideWeatherCityDao(appDatabase: AppDatabase): WeatherCityDao = appDatabase.weatherCityDao()
-
-    @Provides
-    @Singleton
-    fun provideWeatherCityCache(cache: WeatherCityCacheImpl): WeatherCityCache = cache
 }

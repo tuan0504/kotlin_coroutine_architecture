@@ -57,7 +57,8 @@ abstract class NetworkBoundResource<ResultType, RequestType>
             if (response !is ApiLoading) {
                 result.removeSource(apiResponse)
                 result.removeSource(dbSource)
-                when (response) {is ApiSuccessResponse -> {
+                when (response) {
+                    is ApiSuccessResponse -> {
                         runWithDispatcher(Dispatchers.IO) {
                             saveCallResult(processResponse(response))
                             runWithDispatcher(Dispatchers.Main) {
@@ -106,7 +107,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
 }
 
 fun runWithDispatcher(dispatcher: CoroutineDispatcher, run: () -> Unit) {
-    CoroutineScope(dispatcher).launch {run()}
+    CoroutineScope(dispatcher).launch { run() }
 }
 
 /**

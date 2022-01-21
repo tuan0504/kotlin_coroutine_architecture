@@ -10,8 +10,10 @@ import com.nn.architecture.core.utils.AbsentLiveData
 import com.nn.architecture.core.utils.debounce
 import com.nn.architecture.features.weathers.model.WeatherDailyDataModel
 import com.nn.architecture.features.weathers.respository.WeatherRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class WeathersViewModel
 @Inject constructor( val weatherRepository: WeatherRepository): BaseViewModel<WeathersViewModel.LiveEvents>() {
     val TAG = WeathersViewModel::class.simpleName

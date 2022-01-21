@@ -17,12 +17,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 internal class AppModule {
 
-    @Provides
-    @Singleton
-    fun providesWeatherRepository(repo: WeatherRepositoryImpl): WeatherRepository {
-        return repo
-    }
-
     @SuppressLint("HardwareIds")
     @Provides
     @Singleton

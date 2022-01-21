@@ -7,11 +7,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.nn.architecture.R
 import com.nn.architecture.core.api.Status
-import com.nn.architecture.core.di.ViewModelFactory
 import com.nn.architecture.core.ui.BaseMvvmFragment
 import com.nn.architecture.databinding.FragmentWeatherCityBinding
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class WeathersFragment : BaseMvvmFragment<WeathersViewModel, FragmentWeatherCityBinding>(R.layout.fragment_weather_city)
@@ -19,13 +17,10 @@ class WeathersFragment : BaseMvvmFragment<WeathersViewModel, FragmentWeatherCity
 
     val TAG = WeathersViewModel::class.simpleName
 
-    @Inject
-    lateinit var factory: ViewModelFactory<WeathersViewModel>
-
-    private var recyclerViewAdapter: WeatherRecyclerAdapter? = null
+    private lateinit var recyclerViewAdapter: WeatherRecyclerAdapter
 
     override fun initViewModel() {
-        viewModel = ViewModelProvider(this, factory).get(WeathersViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(WeathersViewModel::class.java)
         viewModel.uiEvent.setEventReceiver(viewLifecycleOwner, this)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
@@ -34,12 +29,11 @@ class WeathersFragment : BaseMvvmFragment<WeathersViewModel, FragmentWeatherCity
 
     override fun setViews() {
         context?.let {
-            val divider = createItemDecoration(it)
-            recyclerViewAdapter = WeatherRecyclerAdapter(it)
 
             binding.recyclerView.apply {
+                recyclerViewAdapter = WeatherRecyclerAdapter(it)
                 adapter = recyclerViewAdapter
-                addItemDecoration(divider)
+                addItemDecoration(createItemDecoration(it))
             }
 
             binding.queryString = viewModel.queryString
@@ -50,12 +44,12 @@ class WeathersFragment : BaseMvvmFragment<WeathersViewModel, FragmentWeatherCity
     private fun observerChange() {
         viewModel.listData.observe(viewLifecycleOwner, Observer {
             if(it?.status == Status.SUCCESS) {
-                recyclerViewAdapter?.submitList(it.data)
+                recyclerViewAdapter.submitList(it.data)
             }
         })
 
         viewModel.queryString.observe(viewLifecycleOwner, Observer {
-            if(it.count() > 2) { viewModel?.queryWeathersCity() }
+            if(it.count() > 2) { viewModel.queryWeathersCity() }
         })
     }
 
