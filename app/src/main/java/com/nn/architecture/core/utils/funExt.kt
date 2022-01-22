@@ -16,3 +16,7 @@ fun <T> debounce(delayMs: Long = 500L,
         }
     }
 }
+
+fun runWithDispatcher(dispatcher: CoroutineDispatcher = Dispatchers.Main, run: () -> Unit) {
+    CoroutineScope(dispatcher).launch { run() }
+}

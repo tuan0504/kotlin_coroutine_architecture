@@ -1,11 +1,10 @@
 package com.nn.architecture.core.utils
 
 import android.app.Application
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import com.google.android.gms.common.api.ApiException
 import com.nn.architecture.core.helper.ErrorReporting
+import kotlinx.coroutines.Dispatchers
 import okhttp3.internal.http2.ConnectionShutdownException
 import okhttp3.internal.http2.StreamResetException
 import timber.log.Timber
@@ -14,11 +13,12 @@ import java.net.UnknownHostException
 import javax.net.ssl.SSLHandshakeException
 
 class CrashlyticsTree(val app: Application) : Timber.Tree() {
-    val handler = Handler(Looper.getMainLooper())
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
         if (priority >= Log.WARN) {
-            handler.post { sendLogToCrashlytics(priority, tag, message, t) }
+            runWithDispatcher(Dispatchers.IO) {
+                sendLogToCrashlytics(priority, tag, message, t)
+            }
         }
     }
 

@@ -5,10 +5,8 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.map
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
+import com.nn.architecture.core.utils.runWithDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 /**
  * A generic class that can provide a resource backed by both the sqlite database and the network.
@@ -61,7 +59,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                     is ApiSuccessResponse -> {
                         runWithDispatcher(Dispatchers.IO) {
                             saveCallResult(processResponse(response))
-                            runWithDispatcher(Dispatchers.Main) {
+                            runWithDispatcher {
                                 result.addSource(loadFromDb()) { newData ->
                                     setValue(Resource.success(newData))
                                 }
@@ -69,7 +67,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                         }
                     }
                     is ApiEmptyResponse -> {
-                        runWithDispatcher(Dispatchers.Main) {
+                        runWithDispatcher {
                             result.addSource(loadFromDb()) { newData ->
                                 setValue(Resource.success(newData))
                             }
@@ -110,10 +108,6 @@ abstract class NetworkBoundResource<ResultType, RequestType>
 
     @MainThread
     protected abstract fun createCall(): LiveData<ApiResponse<RequestType>>
-}
-
-fun runWithDispatcher(dispatcher: CoroutineDispatcher, run: () -> Unit) {
-    CoroutineScope(dispatcher).launch { run() }
 }
 
 /**
