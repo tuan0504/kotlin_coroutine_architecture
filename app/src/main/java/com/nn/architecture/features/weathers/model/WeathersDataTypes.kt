@@ -1,13 +1,13 @@
 package com.nn.architecture.features.weathers.model
 
 import android.os.Parcelable
-import com.nn.architecture.features.weathers.db.entity.WeatherCityEntity
 import com.nn.architecture.core.utils.DateUtils
 import com.nn.architecture.core.utils.JSONParser
+import com.nn.architecture.features.weathers.db.entity.WeatherCityEntity
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.JsonQualifier
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import java.util.*
 
 @Retention(AnnotationRetention.RUNTIME)
@@ -70,7 +70,7 @@ fun WeatherCityEntity.toDataModel(): List<WeatherDailyDataModel> {
     return if(data?.weathersData?.isNotEmpty() == true) {
       data.weathersData.map {
           val date = DateUtils.formatDisplayDateTime(Date(it.dateTime?:System.currentTimeMillis()))
-          var temp = it.temperature?.values?.sumByDouble { value -> (value?.toDouble()?: 0.0) - 273.15}?:0.0
+          var temp = it.temperature?.values?.sumOf { value -> (value?.toDouble()?: 0.0) - 273.15}?:0.0
           temp /= (it.temperature?.size ?: 1)
 
           WeatherDailyDataModel(this.cityName, date, String.format("%.1f", temp), it.pressure, it.humidity, it.weather?.get(0)?.description )

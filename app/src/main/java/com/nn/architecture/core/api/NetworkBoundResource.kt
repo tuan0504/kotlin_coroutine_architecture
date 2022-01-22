@@ -81,6 +81,12 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                             setValue(Resource.error(response.error, newData))
                         }
                     }
+                    else -> {
+                        onFetchFailed()
+                        result.addSource(dbSource) { newData ->
+                            setValue(Resource.error(Throwable("unknown"), newData))
+                        }
+                    }
                 }
             }
         }
