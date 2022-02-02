@@ -34,11 +34,7 @@ class WeathersViewModel
 
     var job: Job? = null
     fun queryWeathersCity() {
-        viewModelScope.apply {
-            job = debounce(250, job) {
-                isQueryData.value = true
-            }
-        }
+        job = viewModelScope.debounce(250, job) { isQueryData.value = true }
     }
 
     private fun showProcessBar(isShow: Boolean) {
