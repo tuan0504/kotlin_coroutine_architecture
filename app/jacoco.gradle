@@ -1,11 +1,12 @@
 apply plugin:  'jacoco'
 
 jacoco {
-    toolVersion = "0.8.5"
+    toolVersion = "0.8.7"
 }
 
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
+    jacoco.excludes = ['jdk.internal.*']
 }
 
 project.afterEvaluate {
@@ -55,21 +56,21 @@ project.afterEvaluate {
                 '**/*DataBinding*.*'
         ]
 
-        tasks.create(name: "Total${variantName.capitalize()}UnitTestCoverage", type: JacocoReport, dependsOn: "$testTaskName") {
-            group = "Reporting"
-            description = "Generate Jacoco coverage reports for the ${variantName.capitalize()} build."
-
-            reports {
-                html.enabled = true
-                xml.enabled = true
-            }
-
-            def javaClasses = fileTree(dir: variant.javaCompiler.destinationDir, excludes: excludes)
-            def kotlinClasses = fileTree(dir: "${buildDir}/tmp/kotlin-classes/${variantName}", excludes: excludes)
-            getClassDirectories().setFrom(files([javaClasses, kotlinClasses]))
-            getSourceDirectories().setFrom(sourceDirectories)
-            getExecutionData().setFrom(files("${project.buildDir}/jacoco/${testTaskName}.exec"))
-        }
+//        tasks.create(name: "Total${variantName.capitalize()}UnitTestCoverage", type: JacocoReport, dependsOn: "$testTaskName") {
+//            group = "Reporting"
+//            description = "Generate Jacoco coverage reports for the ${variantName.capitalize()} build."
+//
+//            reports {
+//                html.enabled = true
+//                xml.enabled = true
+//            }
+//
+//            def javaClasses = fileTree(dir: variant.javaCompiler.destinationDir, excludes: excludes)
+//            def kotlinClasses = fileTree(dir: "${buildDir}/tmp/kotlin-classes/${variantName}", excludes: excludes)
+//            getClassDirectories().setFrom(files([javaClasses, kotlinClasses]))
+//            getSourceDirectories().setFrom(sourceDirectories)
+//            getExecutionData().setFrom(files("${project.buildDir}/jacoco/${testTaskName}.exec"))
+//        }
 
         def packages = ["weathers"]
 

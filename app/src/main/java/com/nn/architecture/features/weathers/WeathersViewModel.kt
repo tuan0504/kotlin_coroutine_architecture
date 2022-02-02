@@ -1,33 +1,48 @@
 package com.nn.architecture.features.weathers
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.switchMap
-import com.nn.architecture.core.api.Resource
+import androidx.lifecycle.*
+import com.nn.architecture.core.api.Status
 import com.nn.architecture.core.ui.BaseViewModel
 import com.nn.architecture.core.ui.BasicLiveEvent
 import com.nn.architecture.core.utils.AbsentLiveData
 import com.nn.architecture.core.utils.debounce
+import com.nn.architecture.core.utils.showDialog
 import com.nn.architecture.features.weathers.model.WeatherDailyDataModel
 import com.nn.architecture.features.weathers.respository.WeatherRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import javax.inject.Inject
 
 @HiltViewModel
 class WeathersViewModel
-@Inject constructor( val weatherRepository: WeatherRepository): BaseViewModel<WeathersViewModel.LiveEvents>() {
+@Inject constructor(private val weatherRepository: WeatherRepository): BaseViewModel<WeathersViewModel.LiveEvents>() {
     val TAG = WeathersViewModel::class.simpleName
 
-    private val isQueryData = MutableLiveData<Boolean>().apply { value = false}
-    val queryString = MutableLiveData<String>().apply { value = "" }
-    val listData : LiveData<Resource<List<WeatherDailyDataModel>>> = isQueryData.switchMap {
-        if(it == true && !queryString.value.isNullOrEmpty()) {
-            weatherRepository.getWeathersDailyInCity(queryString.value!!)
-        } else AbsentLiveData.create()
+    private val isQueryData = MutableLiveData(false)
+    val queryString = MutableLiveData("")
+    val showProcessStatus = MutableLiveData(false)
+    val listData : LiveData<List<WeatherDailyDataModel>> = isQueryData.switchMap {
+        queryString.value?.let { query -> if(it && query.length > 2) {
+            weatherRepository.getWeathersDailyInCity(query).showDialog(this::showProcessBar).map {
+                when(it.status) {
+                    Status.SUCCESS -> it.data?: listOf()
+                    else -> listOf()
+                }
+            }} else {  AbsentLiveData.create() }
+        }?: kotlin.run { AbsentLiveData.create() }
+    }.distinctUntilChanged()
+
+    var job: Job? = null
+    fun queryWeathersCity() {
+        viewModelScope.apply {
+            job = debounce(250, job) {
+                isQueryData.value = true
+            }
+        }
     }
 
-    fun queryWeathersCity() {
-        debounce<Boolean>(250) {isQueryData.value = it}(true)
+    private fun showProcessBar(isShow: Boolean) {
+        showProcessStatus.postValue(isShow)
     }
 
     interface  LiveEvents: BasicLiveEvent

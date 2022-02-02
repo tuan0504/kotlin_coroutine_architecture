@@ -22,6 +22,8 @@ class MyApplication : Application(), Configuration.Provider {
         // Init timber as early as possible
         if (!BuildConfig.DEBUG) {
             Timber.plant(CrashlyticsTree(this))
+        } else {
+            Timber.plant(Timber.DebugTree())
         }
     }
     override fun getWorkManagerConfiguration(): Configuration {

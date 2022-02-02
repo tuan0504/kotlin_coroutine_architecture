@@ -30,7 +30,6 @@ fun <T> LiveData<T>.blockingObserve(): T? {
         value = t
         latch.countDown()
     }
-
     observeForever(observer)
 
     latch.await(2, TimeUnit.SECONDS)

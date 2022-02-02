@@ -1,19 +1,13 @@
 package com.nn.architecture.features.weathers.db.dao
 
-import android.app.Application
 import com.nn.architecture.blockingObserve
 import com.nn.architecture.core.data.DbTest
 import com.nn.architecture.features.weathers.db.entity.WeatherCityEntity
 import com.nn.architecture.getCurrentDate
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
 import kotlin.test.assertEquals
 
-@Config(sdk = [24], application = Application::class)
-@RunWith(RobolectricTestRunner::class)
 class WeatherCityDaoTest : DbTest() {
 
     val weather = WeatherCityEntity("name1", "raw1", getCurrentDate())

@@ -1,10 +1,13 @@
-apply plugin: 'com.android.application'
-apply plugin: 'dagger.hilt.android.plugin'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: "androidx.navigation.safeargs.kotlin"
-apply plugin: 'com.google.firebase.crashlytics'
-apply plugin: 'kotlin-parcelize'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id "kotlin-kapt"
+    id "androidx.navigation.safeargs.kotlin"
+    id 'com.google.firebase.crashlytics'
+    id 'dagger.hilt.android.plugin'
+}
+
 apply from: 'jacoco.gradle'
 
 android {
@@ -38,12 +41,26 @@ android {
     buildFeatures {
         dataBinding true
         viewBinding true
+    }
 
+    compileOptions {
+        sourceCompatibility(JavaVersion.VERSION_11)
+        targetCompatibility(JavaVersion.VERSION_11)
+    }
+
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources true
+        }
     }
 }
 
 def lifecycleVersion = '2.4.0'
-def navigationVersion = "2.3.5"
+def navigationVersion = "2.4.0-rc01"
 def retrofitVersion = '2.4.0'
 def workVersions = '2.7.1'
 def roomVersion = '2.4.1'
@@ -116,6 +133,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0'
+    testImplementation "org.mockito:mockito-inline:4.3.1"
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
     testImplementation "org.jetbrains.kotlin:kotlin-test:$kotlinVersion"
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion"

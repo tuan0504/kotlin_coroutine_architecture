@@ -5,8 +5,13 @@ import androidx.room.Room
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
+import org.robolectric.annotation.Config
 
+@Config(sdk = [30])
+@RunWith(RobolectricTestRunner::class)
 abstract class DbTest {
 
     @get:Rule
@@ -19,9 +24,8 @@ abstract class DbTest {
     @Before
     fun setUp() {
         _db = Room.inMemoryDatabaseBuilder(
-            RuntimeEnvironment.application.applicationContext,
-            AppDatabase::class.java
-        ).allowMainThreadQueries().build()
+            RuntimeEnvironment.getApplication().applicationContext,
+            AppDatabase::class.java).allowMainThreadQueries().build()
     }
 
     @After

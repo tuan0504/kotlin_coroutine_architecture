@@ -6,7 +6,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.nn.architecture.R
-import com.nn.architecture.core.api.Status
 import com.nn.architecture.core.ui.BaseMvvmFragment
 import com.nn.architecture.databinding.FragmentWeatherCityBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,13 +42,11 @@ class WeathersFragment : BaseMvvmFragment<WeathersViewModel, FragmentWeatherCity
 
     private fun observerChange() {
         viewModel.listData.observe(viewLifecycleOwner, Observer {
-            if(it?.status == Status.SUCCESS) {
-                recyclerViewAdapter.submitList(it.data)
-            }
+            recyclerViewAdapter.submitList(it)
         })
 
         viewModel.queryString.observe(viewLifecycleOwner, Observer {
-            if(it.count() > 2) { viewModel.queryWeathersCity() }
+            viewModel.queryWeathersCity()
         })
     }
 
