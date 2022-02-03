@@ -5,15 +5,10 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.map
 import com.nn.architecture.core.api.Resource
 import com.nn.architecture.core.api.Status
-import kotlinx.coroutines.*
-
-fun CoroutineScope.debounce(delayMs: Long = 500L, job: Job?, f:() -> Unit): Job {
-    job?.cancel()
-    return launch {
-        delay(delayMs)
-        f()
-    }
-}
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 fun runWithDispatcher(dispatcher: CoroutineDispatcher = Dispatchers.Main, run: () -> Unit) {
     CoroutineScope(dispatcher).launch { run() }

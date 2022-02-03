@@ -5,12 +5,11 @@ import com.nn.architecture.core.api.Status
 import com.nn.architecture.core.ui.BaseViewModel
 import com.nn.architecture.core.ui.BasicLiveEvent
 import com.nn.architecture.core.utils.AbsentLiveData
-import com.nn.architecture.core.utils.debounce
+import com.nn.architecture.core.utils.FlowUtil
 import com.nn.architecture.core.utils.showDialog
 import com.nn.architecture.features.weathers.model.WeatherDailyDataModel
 import com.nn.architecture.features.weathers.respository.WeatherRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,6 +17,7 @@ class WeathersViewModel
 @Inject constructor(private val weatherRepository: WeatherRepository): BaseViewModel<WeathersViewModel.LiveEvents>() {
     val TAG = WeathersViewModel::class.simpleName
 
+    private val flowUtil = FlowUtil(viewModelScope)
     private val isQueryData = MutableLiveData(false)
     val queryString = MutableLiveData("")
     val showProcessStatus = MutableLiveData(false)
@@ -32,9 +32,9 @@ class WeathersViewModel
         }?: kotlin.run { AbsentLiveData.create() }
     }.distinctUntilChanged()
 
-    var job: Job? = null
+
     fun queryWeathersCity() {
-        job = viewModelScope.debounce(250, job) { isQueryData.value = true }
+        flowUtil.debounce(250) { isQueryData.value = true }
     }
 
     private fun showProcessBar(isShow: Boolean) {
