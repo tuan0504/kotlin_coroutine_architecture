@@ -9,73 +9,36 @@ tasks.withType(Test) {
     jacoco.excludes = ['jdk.internal.*']
 }
 
+def variantBuild = "debug"
 project.afterEvaluate {
 
+    def testTaskName = "test${variantBuild.capitalize()}UnitTest"
+    def sourceDirectories = files([
+            "$project.projectDir/src/main/java",
+            "$project.projectDir/src/main/kotlin",
+    ])
+    def excludes = [
+            '**/*DataBinding*.*', '**/databinding/**/*.*', '**/android/databinding/*Binding.*',
+            '**/BR.*', '**/R.*', '**/R$*.*',
+            '**/BuildConfig.*', '**/Manifest*.*',
+            '**/*_MembersInjector.*', '**/*_Factory.*',
+            '**/Dagger*Component.*', '**/Dagger*Component$Builder.*',
+            '**/*Module_*Factory.*',
+            '**/*Fragment*.*', '**/*Activity*.*', '**/*Adapter*.*', '**/adapter/*.*',
+            '**/*ViewPager*.*', '**/*ViewHolder*.*', '**/*Module*.*',
+            '**/*Popup*.*', '**/*Dialog*.*', 'android/**/*.*',
+            '**/ui/common/*.*', '**/di/*.*', '**/widget/*.*',
+            '**/*Creator*.*', '**/*Event*.*', '**/DaggerAppComponent.java'
+    ]
+
     android.applicationVariants.all { variant ->
-        if(variant.name != "devDebug") return
-        def variantName = variant.name
-        def testTaskName = "test${variantName.capitalize()}UnitTest"
-
-        def sourceDirectories = files([
-                "$project.projectDir/src/main/java",
-                "$project.projectDir/src/${variantName}/java",
-                "$project.projectDir/src/main/kotlin",
-                "$project.projectDir/src/${variantName}/kotlin"
-        ])
-        def excludes = [
-                '**/databinding/**/*.*',
-                '**/android/databinding/*Binding.*',
-                '**/BR.*',
-                '**/R.*',
-                '**/R$*.*',
-                '**/BuildConfig.*',
-                '**/Manifest*.*',
-                '**/*_MembersInjector.*',
-                '**/*_Factory.*',
-                '**/Dagger*Component.*',
-                '**/Dagger*Component$Builder.*',
-                '**/*Module_*Factory.*',
-                '**/*Fragment*.*',
-                '**/*Activity*.*',
-                '**/*Adapter*.*',
-                '**/*ViewPager*.*',
-                '**/*ViewHolder*.*',
-                '**/*Module*.*',
-                '**/*Popup*.*',
-                '**/*Dialog*.*',
-                'android/**/*.*',
-                '**/ui/common/*.*',
-                '**/di/*.*',
-                '**/widget/*.*',
-                '**/*Event*.*',
-                '**/adapter/*.*',
-                '**/*Creator*.*',
-                '**/*Event*.*',
-                '**/DaggerAppComponent.java',
-                '**/adapter/*.*',
-                '**/*DataBinding*.*'
-        ]
-
-//        tasks.create(name: "Total${variantName.capitalize()}UnitTestCoverage", type: JacocoReport, dependsOn: "$testTaskName") {
-//            group = "Reporting"
-//            description = "Generate Jacoco coverage reports for the ${variantName.capitalize()} build."
-//
-//            reports {
-//                html.enabled = true
-//                xml.enabled = true
-//            }
-//
-//            def javaClasses = fileTree(dir: variant.javaCompiler.destinationDir, excludes: excludes)
-//            def kotlinClasses = fileTree(dir: "${buildDir}/tmp/kotlin-classes/${variantName}", excludes: excludes)
-//            getClassDirectories().setFrom(files([javaClasses, kotlinClasses]))
-//            getSourceDirectories().setFrom(sourceDirectories)
-//            getExecutionData().setFrom(files("${project.buildDir}/jacoco/${testTaskName}.exec"))
-//        }
+        if (variant.name != variantBuild) return
 
         def packages = ["weathers"]
-
         packages.each { featureName ->
-            tasks.create(name: "${featureName}${variantName.capitalize()}UnitTestCoverage", type: JacocoReport, dependsOn: "$testTaskName") {
+
+            System.out.println("feature name : $featureName")
+            tasks.create(name: "${featureName}${variantBuild.capitalize()}UnitTestCoverage", type: JacocoReport, dependsOn: "$testTaskName") {
                 group = "Reporting"
                 description = "Generate Jacoco coverage reports for Features."
 
@@ -86,10 +49,11 @@ project.afterEvaluate {
 
                 def includes = [
                         "**/features/${featureName}/*.*",
+                        "**/features/${featureName}/**/*.*",
                 ]
 
                 def javaClasses = fileTree(dir: variant.javaCompiler.destinationDir, includes: includes, excludes: excludes)
-                def kotlinClasses = fileTree(dir: "${buildDir}/tmp/kotlin-classes/${variantName}", includes: includes, excludes: excludes)
+                def kotlinClasses = fileTree(dir: "${buildDir}/tmp/kotlin-classes/${variantBuild}", includes: includes, excludes: excludes)
                 getClassDirectories().setFrom(files([javaClasses, kotlinClasses]))
                 getSourceDirectories().setFrom(sourceDirectories)
                 getExecutionData().setFrom(files("${project.buildDir}/jacoco/${testTaskName}.exec"))
@@ -100,17 +64,18 @@ project.afterEvaluate {
 
 task ReportUnitTest() {
     group = "Reporting"
-    description = "Unit Test Coverage"
+    description = "Debug Unit Test Coverage"
 
     afterEvaluate {
-        // Run all DevDebugUnitTestCoverage tasks
+        // Run all DebugUnitTestCoverage tasks
         Iterator<Map.Entry<Project, Set<Task>>> iterator = getAllTasks(false).entrySet().iterator()
         while(iterator.hasNext()) {
             Map.Entry<Project, Set<Task>> entry = iterator.next()
             if(entry.getKey().name == "app") {
                 Set<Task> taskSet = entry.getValue()
                 taskSet.findAll { task ->
-                    if (task.name.contains("DevDebugUnitTestCoverage"))
+                    System.out.println("task : $task")
+                    if (task.name.contains("DebugUnitTestCoverage"))
                         return it
                 }.each { task ->
                     dependsOn(task)
