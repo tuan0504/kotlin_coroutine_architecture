@@ -34,10 +34,8 @@ project.afterEvaluate {
     android.applicationVariants.all { variant ->
         if (variant.name != variantBuild) return
 
-        def packages = ["weathers"]
-        packages.each { featureName ->
-
-            System.out.println("feature name : $featureName")
+        def dirs = listDirs("$project.projectDir/src/main/java/com/nn/architecture/features")
+        dirs.each { featureName ->
             tasks.create(name: "${featureName}${variantBuild.capitalize()}UnitTestCoverage", type: JacocoReport, dependsOn: "$testTaskName") {
                 group = "Reporting"
                 description = "Generate Jacoco coverage reports for Features."
@@ -52,7 +50,7 @@ project.afterEvaluate {
                         "**/features/${featureName}/**/*.*",
                 ]
 
-                def javaClasses = fileTree(dir: variant.javaCompiler.destinationDir, includes: includes, excludes: excludes)
+                def javaClasses = fileTree(dir: variant.javaCompileProvider.get().destinationDir, includes: includes, excludes: excludes)
                 def kotlinClasses = fileTree(dir: "${buildDir}/tmp/kotlin-classes/${variantBuild}", includes: includes, excludes: excludes)
                 getClassDirectories().setFrom(files([javaClasses, kotlinClasses]))
                 getSourceDirectories().setFrom(sourceDirectories)
@@ -83,4 +81,11 @@ task ReportUnitTest() {
             }
         }
     }
+}
+
+def listDirs(dir) {
+    def dlist = []
+    new File(dir).eachDir {dlist << it.name }
+    dlist.sort()
+    return dlist
 }
